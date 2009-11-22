@@ -128,6 +128,7 @@ module GitWiki
     set :app_file, __FILE__
     set :haml, { :format        => :html5,
                  :attr_wrapper  => '"'     }
+    set :static, true
     use_in_file_templates!
 
     error PageNotFound do
@@ -155,7 +156,7 @@ module GitWiki
 
     get "/:page" do
       @page = Page.find(params[:page])
-      haml :show
+      haml (params[:page] == GitWiki.homepage ? :home : :show)
     end
 
     post "/:page" do
@@ -181,6 +182,7 @@ __END__
 !!!
 %html
   %head
+    %link{ :rel=>"stylesheet", :href=>"/css/blueprint/screen.css", :type=>"text/css", :media=>"screen, projection"}
     %title= title
   %body
     %ul
@@ -188,7 +190,7 @@ __END__
         %a{ :href => "/#{GitWiki.homepage}" } Home
       %li
         %a{ :href => "/pages" } All pages
-    #content= yield
+    #container= yield
 
 @@ show
 - title @page.name
@@ -218,3 +220,7 @@ __END__
   %ul#list
     - @pages.each do |page|
       %li= list_item(page)
+
+@@ home
+- title "Home Base"
+~"#{@page.to_html}"
