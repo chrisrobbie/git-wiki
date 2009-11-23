@@ -183,21 +183,22 @@ __END__
 %html
   %head
     %link{ :rel=>"stylesheet", :href=>"/css/blueprint/screen.css", :type=>"text/css", :media=>"screen, projection"}
+    %link{ :rel=>"stylesheet", :href=>"/css/blueprint/custom.css", :type=>"text/css", :media=>"screen, projection"}
     %title= title
   %body
-    %ul
-      %li
+    .container
+      .span-24.last
         %a{ :href => "/#{GitWiki.homepage}" } Home
-      %li
         %a{ :href => "/pages" } All pages
-    #container= yield
+      .span-24.last
+        = yield
 
 @@ show
 - title @page.name
-#edit
-  %a{:href => "/#{@page}/edit"} Edit this page
-%h1= title
-#content
+.span-24.float_right.last
+  %a{:href => "/#{@page}/edit"} Edit
+.span-24
+  %h1= title
   ~"#{@page.to_html}"
 
 @@ edit
@@ -222,5 +223,10 @@ __END__
       %li= list_item(page)
 
 @@ home
-- title "Home Base"
-~"#{@page.to_html}"
+- title "Home"
+.span-24.float_right.last
+  %a{:href => "/#{@page}/edit"} Edit
+.span-24
+  %h1= title
+  ~"#{@page.to_html}"
+
