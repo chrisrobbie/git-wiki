@@ -206,7 +206,7 @@ __END__
 %h1= title
 %form{:method => 'POST', :action => "/#{@page}"}
   %p
-    %textarea{:name => 'body', :rows => 30, :style => "width: 100%"}= @page.content
+    %textarea{:name => 'body'}= @page.content
   %p
     %input.submit{:type => :submit, :value => "Save as the newest version"}
     or
